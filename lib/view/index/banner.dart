@@ -4,10 +4,6 @@ import 'package:shop/model/banner_item.dart';
 import 'package:shop/utils/dio.dart';
 
 class HomeBanner extends StatefulWidget {
-  List<BannerItem> _bannerItems = [];
-  final _carouselController = CarouselSliderController();
-  int _currentIndex = 0;
-
   HomeBanner({super.key});
 
   @override
@@ -15,6 +11,9 @@ class HomeBanner extends StatefulWidget {
 }
 
 class _HomeBannerState extends State<HomeBanner> {
+  List<BannerItem> _bannerItems = [];
+  final _carouselController = CarouselSliderController();
+
   @override
   initState() {
     super.initState();
@@ -22,7 +21,7 @@ class _HomeBannerState extends State<HomeBanner> {
   }
 
   Future<void> _loadBannerData() async {
-    widget._bannerItems = await httpRequest.getBanner();
+    _bannerItems = await httpRequest.getBanner();
     setState(() {});
   }
 
@@ -31,14 +30,14 @@ class _HomeBannerState extends State<HomeBanner> {
     return Stack(
       children: [
         CarouselSlider(
-          carouselController: widget._carouselController,
+          carouselController: _carouselController,
 
-          items: List.generate(widget._bannerItems.length, (index) {
+          items: List.generate(_bannerItems.length, (index) {
             return Container(
               width: double.infinity,
               color: Colors.green,
               child: Image.network(
-                widget._bannerItems[index].imageUrl,
+                _bannerItems[index].imageUrl,
                 fit: BoxFit.cover,
               ),
             );
@@ -52,10 +51,10 @@ class _HomeBannerState extends State<HomeBanner> {
 
         Positioned(top: 15, child: BannerInput()),
         Positioned(
-          bottom: 40,
+          bottom: 20,
           child: BannerSelect(
-            bannerItems: widget._bannerItems,
-            carouselController: widget._carouselController,
+            bannerItems: _bannerItems,
+            carouselController: _carouselController,
           ),
         ),
       ],
@@ -93,9 +92,9 @@ class _BannerInputState extends State<BannerInput> {
 class BannerSelect extends StatefulWidget {
   final List<BannerItem> bannerItems;
   final CarouselSliderController carouselController ;
-  int currentIndex = 0;
+  
 
-  BannerSelect({
+  const BannerSelect({
     super.key,
     required this.bannerItems,
     required this.carouselController,
@@ -106,6 +105,8 @@ class BannerSelect extends StatefulWidget {
 }
 
 class _BannerSelectState extends State<BannerSelect> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,7 +118,7 @@ class _BannerSelectState extends State<BannerSelect> {
         children: List.generate(widget.bannerItems.length, (index) {
           return GestureDetector(
             onTap: () {
-              widget.currentIndex = index;
+              currentIndex = index;
               widget.carouselController.animateToPage(index);
 
               setState(() {});
@@ -126,7 +127,7 @@ class _BannerSelectState extends State<BannerSelect> {
               width: 40,
               height: 6,
               decoration: BoxDecoration(
-                color: index == widget.currentIndex
+                color: index == currentIndex
                     ? Colors.black
                     : Colors.white,
                 border: Border.all(color: Colors.green, width: 1),
