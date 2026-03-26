@@ -53,10 +53,18 @@ class _HomeBannerState extends State<HomeBanner> {
         Positioned(
           top: 15,
           child: Container(
-            padding: EdgeInsets.only(left: 20,right: 20),
+            padding: EdgeInsets.only(left: 20, right: 20),
             width: MediaQuery.of(context).size.width,
             height: 40,
-            child: TextField(decoration: InputDecoration(hintText: "搜索", border:OutlineInputBorder(borderRadius: BorderRadius.circular(20)) )),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: "搜索",
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(width: 1,color: Colors.white70),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
           ),
         ),
 
