@@ -32,7 +32,6 @@ class HttpRequest {
       var list = data["result"] as List;
       return list.map((item) {
         var json = item as Map<String, dynamic>;
-        print("img1111111111111: ${json['imgUrl']}");
         return BannerItem.fromJson(json);
       }).toList();
     } catch (err) {
