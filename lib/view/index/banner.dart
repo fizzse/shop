@@ -91,8 +91,8 @@ class _BannerInputState extends State<BannerInput> {
 }
 
 class BannerSelect extends StatefulWidget {
-  List<BannerItem> bannerItems = [];
-  var carouselController = CarouselSliderController();
+  final List<BannerItem> bannerItems;
+  final CarouselSliderController carouselController ;
   int currentIndex = 0;
 
   BannerSelect({
