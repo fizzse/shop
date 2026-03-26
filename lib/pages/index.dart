@@ -32,7 +32,6 @@ class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("首页")),
       body: SafeArea(
         child: IndexedStack(
           index: _currentIndex,
