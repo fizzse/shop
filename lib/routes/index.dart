@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:shop/pages/index.dart';
 import 'package:shop/pages/login.dart';
@@ -11,7 +10,7 @@ Widget getApp() {
   );
 }
 
-Map<String, Widget Function(BuildContext)> getRoutes() {
+Map<String, Widget Function(BuildContext ctx)> getRoutes() {
   return {
     "/index": (ctx){return IndexPage();},
     "/login": (ctx){return LoginPage();},

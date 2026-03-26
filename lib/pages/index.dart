@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop/view/index/home.dart';
 
 class IndexPage extends StatefulWidget {
   const IndexPage({super.key});
@@ -12,10 +13,7 @@ class _IndexPageState extends State<IndexPage> {
   final _bottomNavigationBarItem = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: "首页"),
     const BottomNavigationBarItem(icon: Icon(Icons.category), label: "分类"),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.shopping_cart),
-      label: "购物车",
-    ),
+    const BottomNavigationBarItem(icon: Icon(Icons.shopping_cart),label: "购物车"),
     const BottomNavigationBarItem(icon: Icon(Icons.person), label: "我的"),
   ];
   List<BottomNavigationBarItem> _bottomNavigationBarItems() {
@@ -24,7 +22,7 @@ class _IndexPageState extends State<IndexPage> {
 
   List<Widget> _indexedStackChildren() {
     return [
-      const Text("首页"),
+      const Home(),
       const Text("分类"),
       const Text("购物车"),
       const Text("我的"),
