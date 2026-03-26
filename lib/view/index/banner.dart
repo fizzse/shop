@@ -50,54 +50,12 @@ class _HomeBannerState extends State<HomeBanner> {
           ),
         ),
 
+        Positioned(top: 15, child: BannerInput()),
         Positioned(
-          top: 15,
-          child: Container(
-            padding: EdgeInsets.only(left: 20, right: 20),
-            width: MediaQuery.of(context).size.width,
-            height: 40,
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: "搜索",
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(width: 1,color: Colors.white70),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ),
-          ),
-        ),
-
-        Positioned(
-          bottom: 10,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: 20,
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(widget._bannerItems.length, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    widget._currentIndex = index;
-                    widget._carouselController.animateToPage(index);
-
-                    setState(() {});
-                  },
-                  child: Container(
-                    width: 40,
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: index == widget._currentIndex
-                          ? Colors.black
-                          : Colors.white,
-                      border: Border.all(color: Colors.green, width: 1),
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                  ),
-                );
-              }),
-            ),
+          bottom: 40,
+          child: BannerSelect(
+            bannerItems: widget._bannerItems,
+            carouselController: widget._carouselController,
           ),
         ),
       ],
@@ -105,35 +63,79 @@ class _HomeBannerState extends State<HomeBanner> {
   }
 }
 
-// class BannerSelecter extends StatefulWidget {
-//   const BannerSelecter({super.key});
+class BannerInput extends StatefulWidget {
+  const BannerInput({super.key});
 
-//   @override
-//   State<BannerSelecter> createState() => _BannerSelecterState();
-// }
+  @override
+  State<BannerInput> createState() => _BannerInputState();
+}
 
-// class _BannerSelecterState extends State<BannerSelecter> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: 20,
-//       alignment: Alignment.center,
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: List.generate(widget._bannerItems.length, (index) {
-//           return Container(
-//             width: 30,
-//             height: 10,
-//             //margin: EdgeInsets.only(left: 5),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               border: Border.all(color: Colors.green, width: 1),
-//               borderRadius: BorderRadius.circular(5),
-//             ),
-//           );
-//         }),
-//       ),
-//     );
-//   }
-// }
+class _BannerInputState extends State<BannerInput> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20),
+      width: MediaQuery.of(context).size.width,
+      height: 40,
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: "搜索",
+          border: OutlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.white70),
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BannerSelect extends StatefulWidget {
+  List<BannerItem> bannerItems = [];
+  var carouselController = CarouselSliderController();
+  int currentIndex = 0;
+
+  BannerSelect({
+    super.key,
+    required this.bannerItems,
+    required this.carouselController,
+  });
+
+  @override
+  State<BannerSelect> createState() => _BannerSelectState();
+}
+
+class _BannerSelectState extends State<BannerSelect> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 20,
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(widget.bannerItems.length, (index) {
+          return GestureDetector(
+            onTap: () {
+              widget.currentIndex = index;
+              widget.carouselController.animateToPage(index);
+
+              setState(() {});
+            },
+            child: Container(
+              width: 40,
+              height: 6,
+              decoration: BoxDecoration(
+                color: index == widget.currentIndex
+                    ? Colors.black
+                    : Colors.white,
+                border: Border.all(color: Colors.green, width: 1),
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+}
